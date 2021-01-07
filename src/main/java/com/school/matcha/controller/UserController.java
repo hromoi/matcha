@@ -25,7 +25,7 @@ public class UserController {
         return new ResponseEntity<>(userService.save(userDTO), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/findByLogin")
+    @PostMapping(value = "/findByLogin")
     public ResponseEntity<String> findByLogin(@RequestBody String login) {
         User user = userService.findByLogin(login);
         if (user != null) {
@@ -34,8 +34,8 @@ public class UserController {
         return new ResponseEntity<>("Login доступен для регистрации!", HttpStatus.OK);
     }
 
-    @GetMapping(value = "/findByEmail")
-    public ResponseEntity<String> findByEmail(@RequestBody String email) {
+    @PostMapping(value = "/findByEmail")
+    public ResponseEntity<String> findByEmail(@RequestBody(required = false) String email) {
         User user = userService.findByEmail(email);
         if (user != null) {
             return new ResponseEntity<>("Email уже занят другим пользователем!", HttpStatus.INTERNAL_SERVER_ERROR);
