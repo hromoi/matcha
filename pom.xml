@@ -124,11 +124,12 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>3.10.3</version>
 				<configuration>
-					<changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
-					<driver>com.mysql.cj.jdbc.Driver</driver>
-					<url>jdbc:mysql://localhost:3306/matcha?serverTimezone=Europe/Moscow</url>
-					<username>root</username>
-					<password>Q1645175q!</password>
+					<propertyFile>liquibase.properties</propertyFile>
+<!--					<changeLogFile>db/changelog/db.changelog-master.xml</changeLogFile>-->
+<!--					<url>jdbc:mysql://localhost:3306/matcha?serverTimezone=Europe/Moscow</url>-->
+<!--					<driver>com.mysql.cj.jdbc.Driver</driver>-->
+<!--					<username>root</username>-->
+<!--					<password>Q1645175q!</password>-->
 				</configuration>
 			</plugin>
 		</plugins>

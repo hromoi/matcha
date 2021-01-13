@@ -12,4 +12,8 @@
     <changeSet id="100" author="savinov_evgeny">
         <tagDatabase tag="v1.0"/>
     </changeSet>
+    <include file="v2.0/v2.0_add_column_comment_for_table_users.xml" relativeToChangelogFile="true"/>
+    <changeSet id="200" author="savinov_evgeny">
+        <tagDatabase tag="v2.0"/>
+    </changeSet>
 </databaseChangeLog>

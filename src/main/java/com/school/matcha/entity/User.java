@@ -21,6 +21,8 @@ public class User {
     private String email;
     @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "comment", nullable = false)
+    private String comment;
 
     public static User userDTOToUser(UserDTO userDTO) {
         User user = new User();
