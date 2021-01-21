@@ -1,6 +1,7 @@
 package com.school.matcha.entity;
 
-import com.school.matcha.dto.UserDTO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
@@ -21,14 +24,12 @@ public class User {
     private String email;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "comment", nullable = false)
+    @Column(name = "comment")
     private String comment;
-
-    public static User userDTOToUser(UserDTO userDTO) {
-        User user = new User();
-        user.setLogin(userDTO.getLogin());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        return user;
-    }
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

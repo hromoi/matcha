@@ -1,10 +1,9 @@
 package com.school.matcha.service;
 
-import com.school.matcha.dto.UserDTO;
+import java.util.Optional;
+import com.school.matcha.dto.RequestSignUpDTO;
 import com.school.matcha.entity.User;
 
 public interface UserService {
-    User save(UserDTO userDTO);
-    User findByLogin(String login);
-    User findByEmail(String email);
+    Optional<User> save(RequestSignUpDTO request);
 }

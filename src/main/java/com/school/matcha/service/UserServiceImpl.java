@@ -1,33 +1,36 @@
 package com.school.matcha.service;
 
-import com.school.matcha.dto.UserDTO;
+import java.util.Optional;
+import com.school.matcha.dto.RequestSignUpDTO;
+import com.school.matcha.entity.Role;
+import com.school.matcha.entity.Status;
 import com.school.matcha.entity.User;
 import com.school.matcha.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User save(UserDTO userDTO) {
-        return userRepository.save(User.userDTOToUser(userDTO));
-    }
-
-    @Override
-    public User findByLogin(String login) {
-        return userRepository.findByLogin(login);
-    }
-
-    @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<User> save(RequestSignUpDTO request) {
+        User user = User.builder()
+                .login(request.getLogin())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.USER)
+                .status(Status.ACTIVE)
+                .build();
+        return Optional.of(userRepository.save(user));
     }
 }
