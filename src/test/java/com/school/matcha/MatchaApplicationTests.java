@@ -7,6 +7,10 @@ import io.jsonwebtoken.Jwts;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 @SpringBootTest
 class MatchaApplicationTests {
 
@@ -20,6 +24,14 @@ class MatchaApplicationTests {
 		String username = claimsJws.getBody().getSubject();
 		String signature = claimsJws.getSignature();
 		JwsHeader header = claimsJws.getHeader();
+	}
+
+	@Test
+	void test() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		int num1 = Integer.parseInt(reader.readLine());
+		int num2 = Integer.parseInt(reader.readLine());
+		System.out.println(num1 + num2);
 	}
 
 }

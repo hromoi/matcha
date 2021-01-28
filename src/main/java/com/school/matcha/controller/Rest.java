@@ -4,6 +4,7 @@ import com.school.matcha.dto.RequestSignInDTO;
 import com.school.matcha.dto.RequestSignUpDTO;
 import com.school.matcha.dto.ResponseSignInDTO;
 import com.school.matcha.security.JWTUtil;
+import com.school.matcha.service.TokenVerificationService;
 import com.school.matcha.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,17 +18,18 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping
 @AllArgsConstructor
-public class RestControllerMatcha {
+public class Rest {
     private final JWTUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
+    private final TokenVerificationService tokenVerificationService;
 
     @GetMapping(value = "/")
     public ResponseEntity<HttpStatus> mainPage(@RequestBody(required = false) RequestSignInDTO request) {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/signIn")
+    @PostMapping(value = "/signin")
     public ResponseEntity<ResponseSignInDTO> signIn(@RequestBody RequestSignInDTO request) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
@@ -39,11 +41,17 @@ public class RestControllerMatcha {
         return new ResponseEntity<>(responseSignInDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody RequestSignUpDTO request) {
         if (userService.save(request).isPresent()){
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping("/confirmation")
+    public ResponseEntity<HttpStatus> confirmation(@RequestParam(name = "token") String token){
+        tokenVerificationService.validateToken(token);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

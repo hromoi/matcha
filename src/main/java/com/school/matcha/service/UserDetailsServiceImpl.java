@@ -1,5 +1,6 @@
 package com.school.matcha.service;
 
+import com.school.matcha.entity.Status;
 import com.school.matcha.entity.User;
 import com.school.matcha.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .builder()
                 .username(user.getLogin())
                 .password(user.getPassword())
+                .disabled(user.getStatus().equals(Status.INACTIVE))
                 .authorities(Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name())))
                 .build();
     }

@@ -14,6 +14,7 @@
     </changeSet>
     <include file="v1.0/v1.0.0_add_column_comment_for_table_users.xml" relativeToChangelogFile="true"/>
     <include file="v1.0/v1.0.10_add_column_status_and_column_role_for_table_users.xml" relativeToChangelogFile="true"/>
+    <include file="v1.0/v1.0.30_create_table_verifications_tokens.xml" relativeToChangelogFile="true"/>
     <changeSet id="200" author="savinov_evgeny">
         <tagDatabase tag="v2.0"/>
     </changeSet>
